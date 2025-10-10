@@ -1,0 +1,78 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0308
+header_name {.h}
+code_name {.cpp}
+decl {\#include "clsFormSwcContext.h"} {private local
+}
+
+Function {winit_formswc()} {open
+} {
+  code {static clsFormSwcContext FormSwcContext;} {}
+  Fl_Window {} {
+    label {Prepare data: }
+    user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+    callback {v->cbCancel();} open
+    xywh {518 354 300 172} type Double align 80
+    code0 {FormSwcContext.Win(o);} visible
+  } {
+    Fl_Button {} {
+      label OK
+      user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+      callback {v->cbOK();}
+      xywh {185 10 100 25} labeltype ENGRAVED_LABEL labelcolor 60
+    }
+    Fl_Button {} {
+      label Cancel
+      user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+      callback {v->cbCancel();} selected
+      xywh {185 40 100 25} labeltype ENGRAVED_LABEL labelcolor 81
+    }
+    Fl_Button {} {
+      label {All On}
+      user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+      callback {v->cbOnOff(true);}
+      xywh {180 105 100 25} labeltype ENGRAVED_LABEL labelcolor 80
+    }
+    Fl_Button {} {
+      label {All Off}
+      user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+      callback {v->cbOnOff(false);}
+      xywh {180 140 100 25} labeltype ENGRAVED_LABEL labelcolor 4
+    }
+    Fl_Group {} {
+      label Clear open
+      xywh {10 20 150 145} box GTK_DOWN_FRAME labeltype ENGRAVED_LABEL labelsize 16 labelcolor 80
+    } {
+      Fl_Check_Button {} {
+        label {DFile data}
+        user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+        xywh {30 30 100 24} down_box DOWN_BOX value 1
+        code0 {FormSwcContext.RegisterWg("cb_DFd",o);}
+      }
+      Fl_Check_Button {} {
+        label {DFile meta data}
+        user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+        xywh {30 56 100 24} down_box DOWN_BOX value 1
+        code0 {FormSwcContext.RegisterWg("cb_DFmd",o);}
+      }
+      Fl_Check_Button {} {
+        label {DFile registers}
+        user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+        xywh {30 81 100 24} down_box DOWN_BOX value 1
+        code0 {FormSwcContext.RegisterWg("cb_DFrg",o);}
+      }
+      Fl_Check_Button {} {
+        label {FTable registers}
+        user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+        xywh {30 106 100 24} down_box DOWN_BOX value 1
+        code0 {FormSwcContext.RegisterWg("cb_FTrg",o);}
+      }
+      Fl_Check_Button {} {
+        label {Model }
+        user_data {&FormSwcContext} user_data_type {clsFormSwcContext*}
+        xywh {30 131 100 24} down_box DOWN_BOX value 1
+        code0 {FormSwcContext.RegisterWg("cb_Mod",o);}
+      }
+    }
+  }
+}

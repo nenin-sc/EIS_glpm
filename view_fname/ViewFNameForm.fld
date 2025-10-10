@@ -1,0 +1,42 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0402
+header_name {.h}
+code_name {.cpp}
+decl {\#include <FL/x.h>} {private local
+}
+
+decl {\#include "clsViewFNameCntx.h"} {public local
+}
+
+Function {winit_viewfname()} {open
+} {
+  code {static clsViewFNameCntx  ViewFNameCntx;} {}
+  Fl_Window {} {
+    label {EIS Data File Name}
+    user_data {&ViewFNameCntx} user_data_type {clsViewFNameCntx*}
+    callback {v->cbClose();} open selected
+    private xywh {386 277 783 121} type Double align 80
+    code0 {ViewFNameCntx.Win(o);}
+    code1 {ViewFNameCntx.InitWidgets();} visible
+  } {
+    Fl_Output {} {
+      label {Data:}
+      user_data {&ViewFNameCntx} user_data_type {clsViewFNameCntx*}
+      xywh {10 18 760 27} color 247 labelsize 16 align 5 textsize 16
+      code0 {ViewFNameCntx.RegisterWg("txout_datfname",o);}
+      code1 {o->color(fl_rgb_color(190,240,255));}
+      class Fl_OutputWithMenu
+    }
+    Fl_Output {} {
+      label {Model:}
+      user_data {&ViewFNameCntx} user_data_type {clsViewFNameCntx*}
+      xywh {10 73 760 27} color 247 labelsize 16 align 5 textsize 16
+      code0 {ViewFNameCntx.RegisterWg("txout_modfname",o);}
+      code1 {o->color(fl_rgb_color(190,240,255));}
+      class Fl_OutputWithMenu
+    }
+  }
+  code {auto ic=LoadIconA(fl_display, MAKEINTRESOURCE(501));
+w->default_icons(ic,ic+5);
+w->show();} {}
+}

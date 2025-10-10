@@ -1,0 +1,541 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0402
+header_name {.h}
+code_name {.cpp}
+decl {\#include "clsAppContext.h"} {private local
+}
+
+decl {\#include <FL/x.h>} {private global
+}
+
+Function {} {open
+} {
+  code {clsAppContext AppContext;
+Fl::scheme("gtk+");} {}
+  Fl_Window {} {
+    label {EIS generator & editor}
+    user_data {&AppContext} user_data_type {clsAppContext*}
+    callback {v->cbClose();} open
+    xywh {725 176 800 600} type Double labelsize 16 align 80
+    code0 {AppContext.Win(o);}
+    code1 {AppContext.init_windows();} visible
+  } {
+    Fl_Button {} {
+      label Close
+      user_data {&AppContext} user_data_type {clsAppContext*}
+      callback {v->cbClose();}
+      xywh {690 10 100 25} labeltype ENGRAVED_LABEL labelcolor 81
+    }
+    Fl_Tabs {} {open
+      xywh {5 107 795 513} selection_color 206 labelsize 18
+      code0 {o->value(grp_datafile);}
+    } {
+      Fl_Group {} {
+        label Model open
+        xywh {15 138 775 458} labelsize 18 hide
+      } {
+        Fl_Tree {} {
+          label Coefficients
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {//o->cbTree();}
+          xywh {25 170 385 410} selection_color 246 labelsize 18
+          code0 {AppContext.RegisterWg("tree_eis",o);}
+          code1 {o->root_label("Elements");}
+          class Fl_WgtTree
+        }
+        Fl_Button {} {
+          label {@+4fileopen}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbLoadMod();}
+          tooltip {Load model} xywh {430 165 40 40} labelcolor 221
+        }
+        Fl_Button {} {
+          label {@+4filesave}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbSaveMod();}
+          tooltip {Save model} xywh {475 165 40 40} labelcolor 68
+        }
+        Fl_Button {} {
+          label {Store @>}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbStoreMOD();}
+          xywh {480 250 85 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 187
+        }
+        Fl_Group {} {
+          label Slots
+          user_data {&AppContext} user_data_type {clsAppContext*} open
+          xywh {575 245 125 90} box GTK_DOWN_FRAME labelsize 18
+          code0 {AppContext.RegisterWg("grp.eisdf.slots",o);}
+        } {
+          Fl_Round_Button {} {
+            label 1
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbModSlot(1,o);}
+            xywh {590 255 105 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.mod.slot1",o);}
+          }
+          Fl_Round_Button {} {
+            label 2
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbModSlot(2,o);}
+            xywh {590 280 105 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.mod.slot2",o);}
+          }
+          Fl_Round_Button {} {
+            label 3
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbModSlot(3,o);}
+            xywh {590 305 105 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.mod.slot3",o);}
+          }
+        }
+        Fl_Choice {} {
+          label Restore
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbReStoreMOD(o->value());} open
+          xywh {445 310 120 25} down_box GTK_DOWN_BOX labelsize 18 align 5 when 6 textsize 18
+          code0 {AppContext.RegisterWg("ch.mod.restore",o);}
+        } {}
+        Fl_Input {} {
+          label Area
+          user_data {&AppContext}
+          xywh {435 426 170 24} labelsize 16 align 5 textsize 16
+          code0 {AppContext.RegisterWg("inpf_Area",o);}
+          class Fl_Float_Input
+        }
+      }
+      Fl_Group {} {
+        label {Frequency table} open
+        xywh {10 145 780 450} labelsize 18
+      } {
+        Fl_Group {} {
+          label {Range:} open
+          xywh {50 255 220 150} box GTK_DOWN_FRAME labelsize 16
+        } {
+          Fl_Input {} {
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            xywh {70 300 170 24} labelsize 16 align 5 textsize 16 textcolor 4
+            code0 {AppContext.RegisterWg("inpf_minFrq",o);}
+            class Fl_InputWithMenu
+          }
+          Fl_Input {} {
+            user_data {&AppContext}
+            xywh {70 372 170 24} labelsize 16 align 5 textsize 16 textcolor 4
+            code0 {AppContext.RegisterWg("inpf_maxFrq",o);}
+            class Fl_InputWithMenu
+          }
+          Fl_Choice {} {
+            label {Min,}
+            user_data {&AppContext} open
+            xywh {120 279 81 20} down_box BORDER_BOX labelsize 18 textsize 18
+            code0 {AppContext.RegisterWg("ch_minFrqK",o);}
+          } {}
+          Fl_Choice {} {
+            label {Max,}
+            user_data {&AppContext} open
+            xywh {120 350 81 20} down_box BORDER_BOX labelsize 18 textsize 18
+            code0 {AppContext.RegisterWg("ch_maxFrqK",o);}
+          } {}
+        }
+        Fl_Input {} {
+          label {Points/Decade}
+          user_data {&AppContext}
+          xywh {55 191 90 24} labelsize 16 align 5 textsize 16
+          code0 {AppContext.RegisterWg("inpi_ppd",o);}
+          class Fl_Int_Input
+        }
+        Fl_Input {} {
+          label {Points:}
+          user_data {&AppContext}
+          xywh {50 446 90 24} labelsize 16 align 5 textsize 16
+          code0 {AppContext.RegisterWg("inpi_nPt",o);}
+          class Fl_Int_Input
+        }
+        Fl_Button {} {
+          label {Prepare Table}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbGenerateFTable();}
+          tooltip {Generate frequency table} xywh {175 195 105 25} labelcolor 148
+        }
+        Fl_Button {} {
+          label Calculate
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbGenerateModelOutput(0);}
+          xywh {300 195 85 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 15
+        }
+        Fl_Button {} {
+          label {@< Store}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbStoreFTABLE();}
+          xywh {415 280 85 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 187
+        }
+        Fl_Group {} {
+          label Slots
+          user_data {&AppContext} user_data_type {clsAppContext*} open
+          xywh {285 280 125 90} box GTK_DOWN_FRAME labelsize 18
+          code0 {AppContext.RegisterWg("grp.ftable.slots",o);}
+        } {
+          Fl_Round_Button {} {
+            label 1
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbFTSlot(1,o);}
+            xywh {300 290 82 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.ftable.slot1",o);}
+          }
+          Fl_Round_Button {} {
+            label 2
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbFTSlot(2,o);}
+            xywh {300 315 82 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.ftable.slot2",o);}
+          }
+          Fl_Round_Button {} {
+            label 3
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbFTSlot(3,o);}
+            xywh {300 340 82 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.ftable.slot3",o);}
+          }
+        }
+        Fl_Choice {} {
+          label Plot
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbPlotFT(o->value());} open
+          xywh {290 400 120 25} down_box GTK_DOWN_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 when 6 textsize 18
+          code0 {AppContext.RegisterWg("ch.ft.plot",o);}
+        } {}
+        Fl_Group {} {
+          label Output open
+          xywh {565 300 205 140} box GTK_DOWN_FRAME labelsize 18
+        } {
+          Fl_Choice {} {
+            label Source
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            xywh {575 390 120 25} down_box GTK_DOWN_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch.ft.save.src",o);}
+          } {}
+          Fl_Choice {} {
+            label Format
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            xywh {575 330 120 25} down_box GTK_DOWN_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch.ft.save.ft",o);}
+          } {}
+          Fl_Button {} {
+            label {@+4filesave}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbSaveFT();}
+            tooltip {Save generated EIS data} xywh {715 340 40 40} labelcolor 15
+          }
+        }
+        Fl_Button {} {
+          label {@>  Orig}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbStoreOrigEISDF();} selected
+          tooltip {Sent data from selected slot to "orig" register} xywh {420 320 75 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 147
+        }
+        Fl_Group {} {
+          label Load open
+          xywh {595 165 170 95} box GTK_DOWN_FRAME labelsize 18
+        } {
+          Fl_Button {} {
+            label Text
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbLoadFTable();}
+            tooltip {Load frequency table from data file.} xywh {650 175 60 26} labeltype EMBOSSED_LABEL labelcolor 59
+          }
+        }
+      }
+      Fl_Group grp_datafile {
+        label {Data File} user_data_type {void*} open
+        private xywh {10 140 790 460} labelsize 18 hide
+      } {
+        Fl_Group {} {
+          label {Range:} open
+          xywh {40 220 220 190} box GTK_DOWN_FRAME labelsize 16 deactivate
+        } {
+          Fl_Input {} {
+            user_data {&AppContext}
+            xywh {60 305 170 24} labelsize 16 align 5 textsize 16
+            code0 {AppContext.RegisterWg("inpf.eisdf.minf",o);}
+            class Fl_Float_Input
+          }
+          Fl_Input {} {
+            user_data {&AppContext}
+            xywh {60 377 170 24} labelsize 16 align 5 textsize 16
+            code0 {AppContext.RegisterWg("inpf.eisdf.maxf",o);}
+            class Fl_Float_Input
+          }
+          Fl_Choice {} {
+            label {Min,}
+            user_data {&AppContext} open
+            xywh {110 284 81 20} down_box BORDER_BOX labelsize 18 textsize 18
+            code0 {AppContext.RegisterWg("ch.eisdf.minf",o);}
+          } {}
+          Fl_Choice {} {
+            label {Max,}
+            user_data {&AppContext} open
+            xywh {110 355 81 20} down_box BORDER_BOX labelsize 18 textsize 18
+            code0 {AppContext.RegisterWg("ch.eisdf.maxf",o);}
+          } {}
+          Fl_Check_Button {} {
+            label Apply
+            xywh {80 245 82 20} down_box DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("chb.eisdf.range",o);}
+          }
+        }
+        Fl_Button {} {
+          label Calculate
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbGenerateModelOutput(1);}
+          xywh {390 205 85 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 15
+        }
+        Fl_Button {} {
+          label {Load Data}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbLoadData();}
+          tooltip {Load frequency table from data file.} xywh {685 155 100 30} labeltype EMBOSSED_LABEL labelcolor 59
+        }
+        Fl_Output {} {
+          label {Points/ppd}
+          xywh {140 427 225 31} labelsize 18 textsize 18
+          code0 {AppContext.RegisterWg("txout.eisdf.ppd",o);}
+        }
+        Fl_Button {} {
+          label {@<  Store}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbStoreEISDF();}
+          tooltip {Store temporary data in selected slot} xywh {410 265 75 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 187
+        }
+        Fl_Group {} {
+          label Operations open
+          xywh {410 400 370 185} box GTK_DOWN_FRAME labelsize 18
+        } {
+          Fl_Group {} {
+            label Data open
+            xywh {555 430 210 150} box GTK_DOWN_FRAME labelsize 18
+          } {
+            Fl_Value_Input {} {
+              label {Scale:}
+              xywh {671 542 90 26} labelsize 16 minimum 1 maximum 100000 value 1 textsize 16
+              code0 {AppContext.RegisterWg("ch.eisdf.scale",o);}
+            }
+            Fl_Check_Button {} {
+              label {F.Table}
+              user_data {&AppContext} user_data_type {clsAppContext*}
+              callback {v->cbSvcTable("ch.eisdf.src",o->value());}
+              xywh {560 455 45 25} down_box DOWN_BOX labelsize 18 align 5
+              code0 {AppContext.RegisterWg("cb.eisdf.FtbSrc",o);}
+            }
+            Fl_Check_Button {} {
+              label {F.Table}
+              user_data {&AppContext} user_data_type {clsAppContext*}
+              callback {v->cbSvcTable("ch.eisdf.src.ftbl",o->value());}
+              xywh {562 506 45 25} down_box DOWN_BOX value 1 labelsize 18 align 5
+              code0 {AppContext.RegisterWg("cb.eisdf.FtbAd",o);}
+            }
+          }
+          Fl_Choice {} {
+            label Operation
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbDataOp(o->value());} open
+            xywh {420 435 120 25} down_box GTK_DOWN_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 when 6 textsize 18
+            code0 {AppContext.RegisterWg("ch.eisdf.dataop",o);}
+          } {}
+        }
+        Fl_Choice {} {
+          label {Source Table}
+          user_data {&AppContext} open
+          xywh {630 455 130 25} down_box GTK_DOWN_BOX labelsize 18 align 9 textsize 18
+          code0 {AppContext.RegisterWg("ch.eisdf.src",o);}
+        } {}
+        Fl_Choice {} {
+          label {Additional term }
+          user_data {&AppContext} open
+          xywh {630 510 130 25} down_box GTK_DOWN_BOX labelsize 18 align 9 textsize 18
+          code0 {AppContext.RegisterWg("ch.eisdf.src.ftbl",o);}
+        } {}
+        Fl_Group {} {
+          label Slots
+          user_data {&AppContext} user_data_type {clsAppContext*} open
+          xywh {270 265 125 90} box GTK_DOWN_FRAME labelsize 18
+          code0 {AppContext.RegisterWg("grp.mod.slots",o);}
+        } {
+          Fl_Round_Button {} {
+            label 1
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbEISlot(1,o);}
+            xywh {285 275 82 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.eisdf.slot1",o);}
+          }
+          Fl_Round_Button {} {
+            label 2
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbEISlot(2,o);}
+            xywh {285 300 82 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.eisdf.slot2",o);}
+          }
+          Fl_Round_Button {} {
+            label 3
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbEISlot(3,o);}
+            xywh {285 325 82 20} type Radio down_box ROUND_DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("rb.eisdf.slot3",o);}
+          }
+        }
+        Fl_Choice {} {
+          label Plot
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbPlotEISDF(o->value());} open
+          xywh {270 385 120 25} down_box GTK_DOWN_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 when 6 textsize 18
+          code0 {AppContext.RegisterWg("ch.eisdf.plot",o);}
+        } {}
+        Fl_Button {} {
+          label {Prepare Table}
+          user_data {&AppContext} user_data_type {clsAppContext*}
+          callback {v->cbPrepareEISDFTable();}
+          tooltip {Generate frequency table} xywh {270 205 105 25} labelcolor 148
+        }
+        Fl_Group {} {
+          label Output open
+          xywh {560 230 205 140} box GTK_DOWN_FRAME labelsize 18
+        } {
+          Fl_Choice {} {
+            label Source
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            xywh {570 320 120 25} down_box GTK_DOWN_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch.eisdf.save.src",o);}
+          } {}
+          Fl_Choice {} {
+            label Format
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            xywh {570 260 120 25} down_box GTK_THIN_UP_BOX labeltype ENGRAVED_LABEL labelsize 18 labelcolor 146 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch.eisdf.save.ft",o);}
+          } {}
+          Fl_Button {} {
+            label {@+4filesave}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbSaveEISDF();}
+            tooltip {Save generated EIS data} xywh {710 270 40 40} labelcolor 15
+          }
+        }
+      }
+      Fl_Group {} {
+        label {Meta Data} open
+        xywh {5 140 790 450} labelsize 18 hide
+      } {
+        Fl_Table MetaDataTable {
+          label {Meta Data}
+          user_data {&AppContext}
+          callback {MetaDataTable->tbl_callback();} open
+          private xywh {15 225 745 310} align 5
+          code0 {AppContext.RegisterWg("tbl_Meta_Ed",o);}
+          code1 {MetaDataTable->BindData(AppContext.MetaData);}
+          class clsMetaDataTable
+        } {}
+        Fl_Button {} {
+          label {Add row}
+          user_data MetaDataTable user_data_type {clsMetaDataTable*}
+          callback {v->cbAddRow();}
+          xywh {250 160 100 25} labeltype ENGRAVED_LABEL labelcolor 4
+        }
+        Fl_Button {} {
+          label {Del row}
+          user_data MetaDataTable user_data_type {clsMetaDataTable*}
+          callback {v->cbDelRow();}
+          xywh {370 160 100 25} labeltype ENGRAVED_LABEL labelcolor 73
+        }
+        Fl_Button {} {
+          label {Clear All}
+          user_data MetaDataTable user_data_type {clsMetaDataTable*}
+          callback {v->cbClearAll();}
+          xywh {490 160 100 25} labeltype EMBOSSED_LABEL labelcolor 80
+        }
+      }
+      Fl_Group {} {
+        label Setup open
+        xywh {15 140 775 450} labelsize 18 hide
+      } {
+        Fl_Group {} {
+          label {Text Export} open
+          xywh {55 205 315 310} box GTK_DOWN_FRAME labelsize 18
+        } {
+          Fl_Choice {} {
+            label {Locale:}
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            xywh {70 235 115 25} down_box GTK_DOWN_BOX labelsize 18 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch_loc_csv",o);}
+          } {}
+          Fl_Check_Button {} {
+            label {Negative Z.Im}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            xywh {70 275 140 25} down_box DOWN_BOX value 1 labelsize 18
+            code0 {AppContext.RegisterWg("cb_nzim_csv",o);}
+          }
+          Fl_Check_Button {} {
+            label {Column titles}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            xywh {70 305 140 25} down_box DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("cb_col_csv",o);}
+          }
+          Fl_Check_Button {} {
+            label {<TAB> separator}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            xywh {70 335 165 30} down_box DOWN_BOX labelsize 18
+            code0 {AppContext.RegisterWg("cb_tab_csv",o);}
+          }
+          Fl_Choice {} {
+            label {f sort order:}
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            xywh {70 450 115 25} down_box GTK_DOWN_BOX labelsize 18 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch_fsort_csv",o);}
+          } {}
+          Fl_Check_Button {} {
+            label {Area-specific}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            xywh {70 380 165 30} down_box DOWN_BOX value 1 labelsize 18
+            code0 {AppContext.RegisterWg("cb_asr_csv",o);}
+          }
+          Fl_Button {} {
+            label {For DRTTools}
+            user_data {&AppContext} user_data_type {clsAppContext*}
+            callback {v->cbSetDRTTools();}
+            xywh {235 240 115 25} labeltype ENGRAVED_LABEL labelsize 16 labelcolor 106
+          }
+        }
+        Fl_Group {} {
+          label {Load Text} open
+          xywh {455 230 145 105} box GTK_DOWN_BOX labelsize 18
+        } {
+          Fl_Choice {} {
+            label {Locale:}
+            user_data {&AppContext} user_data_type {clsAppContext*} open
+            tooltip {US- decimal <.>,
+EU- decimal <,>} xywh {465 260 115 25} down_box GTK_DOWN_BOX labelsize 18 align 5 textsize 18
+            code0 {AppContext.RegisterWg("ch_loc_imptxt",o);}
+          } {}
+        }
+      }
+    }
+    Fl_Input {} {
+      label {Model:}
+      user_data {&AppContext}
+      xywh {25 32 655 56} align 5
+      code0 {AppContext.RegisterWg("ted_ExtMod",o);}
+      class Fl_Multiline_Input
+    }
+    Fl_Button {} {
+      label {Clear All}
+      user_data {&AppContext} user_data_type {clsAppContext*}
+      callback {v->cbClearAll();}
+      xywh {690 40 100 25} labeltype EMBOSSED_LABEL labelcolor 81
+    }
+    Fl_Button {} {
+      label {File Names}
+      user_data {&AppContext} user_data_type {clsAppContext*}
+      callback {v->cbShowFnames();}
+      xywh {690 75 100 25} labeltype EMBOSSED_LABEL labelcolor 67
+    }
+  }
+  code {auto ic=LoadIconA(fl_display, MAKEINTRESOURCE(501));
+w->icons(ic,ic+5);} {}
+}

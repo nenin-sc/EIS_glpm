@@ -1,0 +1,28 @@
+#include "winuser.h"
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "dpi32.manifest"
+501 ICON "svg1024_gr1.ico"
+
+1 VERSIONINFO
+PRODUCTVERSION 8,00,0,000
+{
+  BLOCK "StringFileInfo"
+	 {
+		 BLOCK "040904E4"
+		 {
+			 VALUE "CompanyName", "IEN-PIB HITEP"
+			 VALUE "FileVersion", "v8 Win64 binary"
+			 VALUE "FileDescription", "Sotware to generate and processing EIS"
+			 VALUE "InternalName", "fl_eis_glpm_"
+			 VALUE "Author", "Y.Naumovich"
+			 VALUE "OriginalFilename", "fl_eis_glpm_v8.exe"
+			 VALUE "ProductName", "EIS GLPM"
+	         VALUE "BuildDate", __DATE__ " " __TIME__
+             VALUE "Compiler", "MingW-w64 mingw-builds GCC" __VERSION__
+		 }
+	 }
+  BLOCK "VarFileInfo"
+	 {
+		 VALUE "Translation", 0x0409, 1252
+
+	 }
+}

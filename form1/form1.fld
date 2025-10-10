@@ -1,0 +1,61 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0308
+header_name {.h}
+code_name {.cpp}
+decl {\#include "clsForm1Context.h"} {private local
+}
+
+Function {winit_form1()} {open
+} {
+  code {static clsForm1Context Form1Context;} {}
+  Fl_Window {} {
+    label Plots
+    user_data {&Form1Context} user_data_type {clsForm1Context*}
+    callback {v->cbClose();} open
+    xywh {386 277 900 600} type Double align 80
+    code0 {Form1Context.Win(o);}
+    code3 {Form1Context.InitWidgets();} visible
+  } {
+    Fl_Button {} {
+      label Close
+      user_data {&Form1Context} user_data_type {clsForm1Context*}
+      callback {v->cbClose();}
+      xywh {780 10 100 25}
+      code1 {Form1Context.RegisterWg("btn_Close",o);}
+    }
+    Fl_Box {} {
+      label Plot
+      user_data {&Form1Context} selected
+      xywh {65 67 775 489} box GTK_DOWN_BOX color 7 align 5
+      code0 {Form1Context.RegisterWg("pltxy3_mod",o);}
+      class {FL_PlotXY3_13::Fl_PlotXY3}
+    }
+    Fl_Choice {} {
+      label {Plot:}
+      user_data {&Form1Context} user_data_type {clsForm1Context*}
+      callback {v->cbSwitchPlot(o->value());} open
+      xywh {460 15 175 25} down_box BORDER_BOX
+      code0 {Form1Context.RegisterWg("ch_mod_plt",o);}
+    } {}
+    Fl_Output {} {
+      user_data {&Form1Context}
+      xywh {375 566 150 24} box NO_BOX
+      code0 {Form1Context.RegisterWg("outx_Xlab",o);}
+      code1 {o->value("X axis");}
+    }
+    Fl_Box {} {
+      user_data {&Form1Context}
+      xywh {20 248 35 172}
+      code0 {Form1Context.RegisterWg("rtl_YLax",o);}
+      code1 {o->angle(90);}
+      class Fl_Rotated_Label
+    }
+    Fl_Box {} {
+      user_data {&Form1Context}
+      xywh {845 248 35 172}
+      code0 {Form1Context.RegisterWg("rtl_YRax",o);}
+      code1 {o->angle(90);}
+      class Fl_Rotated_Label
+    }
+  }
+}
